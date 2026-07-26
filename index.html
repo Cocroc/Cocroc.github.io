@@ -1,7 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+        content="Junlin He (何俊霖) — incoming master's student at the CVM Laboratory, The University of Tokyo.">
+  <meta name="theme-color" content="#faf9f6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1a1918" media="(prefers-color-scheme: dark)">
+  <title>Junlin He (何俊霖)</title>
+
+  <style>
+    :root {
+      --bg: #faf9f6;
+      --surface: #ffffff;
+      --text: #2b2925;
+      --text-muted: #6b675e;
+      --accent: #0e7263;
+      --accent-strong: #0a5a4e;
+      --accent-soft: #e9f3f0;
+      --border: #e7e3da;
+      --nav-bg: rgba(250, 249, 246, 0.88);
+      --nav-height: 3.5rem;
+      --max-width: 46rem;
+      --serif: Charter, Georgia, "Source Serif 4", "Noto Serif SC",
+               "Songti SC", SimSun, serif;
+      --sans: "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue",
+              "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+              sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1a1918;
+        --surface: #232220;
+        --text: #e8e6e1;
+        --text-muted: #a5a094;
+        --accent: #5cc9b4;
+        --accent-strong: #7ddac8;
+        --accent-soft: rgba(92, 201, 180, 0.12);
+        --border: #37352f;
+        --nav-bg: rgba(26, 25, 24, 0.85);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      /* Anchored sections stop below the sticky nav instead of under it */
+      scroll-padding-top: calc(var(--nav-height) + 1rem);
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 1.0625rem;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---------- Sticky navigation ---------- */
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--nav-height);
+      background: var(--nav-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: var(--max-width);
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav-inner::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-name {
+      font-family: var(--serif);
+      font-weight: 700;
+      font-size: 1.0625rem;
+      color: var(--text);
+      text-decoration: none;
+      white-space: nowrap;
+      margin-right: auto;
+    }
+
+    .nav-name span {
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    nav a.nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      white-space: nowrap;
+      padding: 0.25rem 0;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+
+    nav a.nav-link:hover,
+    nav a.nav-link.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* ---------- Layout ---------- */
+
+    main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 3.5rem 1.25rem 2rem;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    main a:hover {
+      color: var(--accent-strong);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* ---------- Header / intro ---------- */
+
+    .page-header h1 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+
+    .zh-name {
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-left: 0.6rem;
+    }
+
+    .subtitle {
+      margin: 0.6rem 0 1.5rem;
+      font-size: 1.125rem;
+      color: var(--text-muted);
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1.5rem;
+    }
+
+    .links a {
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.15s ease, border-color 0.15s ease,
+                  color 0.15s ease;
+    }
+
+    .links a:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent-strong);
+      text-decoration: none;
+    }
+
+    /* ---------- Sections ---------- */
+
+    section {
+      margin-top: 3.25rem;
+    }
+
+    h2 {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 0 1.1rem;
+      padding-bottom: 0.6rem;
+      position: relative;
+      letter-spacing: -0.01em;
+    }
+
+    /* Short accent bar under each section heading */
+    h2::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 2.25rem;
+      height: 3px;
+      border-radius: 2px;
+      background: var(--accent);
+    }
+
+    ul {
+      margin: 0.5rem 0 0;
+      padding-left: 1.25rem;
+    }
+
+    li {
+      margin-bottom: 0.35rem;
+    }
+
+    li::marker {
+      color: var(--accent);
+    }
+
+    .item {
+      margin-bottom: 1.6rem;
+      padding-left: 1rem;
+      border-left: 2px solid var(--border);
+    }
+
+    .item:last-child {
+      margin-bottom: 0;
+    }
+
+    .item-title {
+      font-weight: 600;
+      font-size: 1.0625rem;
+    }
+
+    .meta {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      letter-spacing: 0.01em;
+      margin-top: 0.1rem;
+    }
+
+    .skills p {
+      margin: 0.4rem 0;
+    }
+
+    /* ---------- Footer ---------- */
+
+    footer {
+      margin-top: 4.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      text-align: center;
+    }
+
+    @media (max-width: 540px) {
+      .page-header h1 {
+        font-size: 1.875rem;
+      }
+
+      .zh-name {
+        display: block;
+        margin: 0.3rem 0 0;
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+
 <body>
-  <main>
-    <header>
-      <h1>Junlin He</h1>
+  <nav>
+    <div class="nav-inner">
+      <a class="nav-name" href="#top">Junlin He <span>· 何俊霖</span></a>
+      <a class="nav-link" href="#research">Research</a>
+      <a class="nav-link" href="#experience">Experience</a>
+      <a class="nav-link" href="#education">Education</a>
+      <a class="nav-link" href="#awards">Awards</a>
+      <a class="nav-link" href="#activities">Activities</a>
+      <a class="nav-link" href="#skills">Skills</a>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="page-header">
+      <h1>Junlin He<span class="zh-name">何俊霖</span></h1>
 
       <p class="subtitle">
         Incoming Master's Student at The University of Tokyo
@@ -33,7 +333,7 @@
       </div>
     </header>
 
-    <section>
+    <section id="research">
       <h2>Research Interests</h2>
 
       <ul>
@@ -49,7 +349,7 @@
       </ul>
     </section>
 
-    <section>
+    <section id="experience">
       <h2>Research Experience</h2>
 
       <div class="item">
@@ -90,7 +390,7 @@
       </div>
     </section>
 
-    <section>
+    <section id="education">
       <h2>Education</h2>
 
       <div class="item">
@@ -115,7 +415,7 @@
       </div>
     </section>
 
-    <section>
+    <section id="awards">
       <h2>Honors &amp; Awards</h2>
 
       <div class="item">
@@ -146,7 +446,7 @@
       </div>
     </section>
 
-    <section>
+    <section id="activities">
       <h2>Leadership &amp; Activities</h2>
 
       <div class="item">
@@ -165,7 +465,7 @@
       </div>
     </section>
 
-    <section>
+    <section id="skills" class="skills">
       <h2>Technical Skills</h2>
 
       <p><strong>Programming:</strong> Python, C, C++</p>
@@ -178,7 +478,32 @@
     </section>
 
     <footer>
-      © 2026 Junlin He · Last updated July 2026
+      © 2026 Junlin He (何俊霖) · Last updated July 2026
     </footer>
   </main>
+
+  <script>
+    // Highlight the nav link for the section currently in view
+    (function () {
+      const links = document.querySelectorAll("nav a.nav-link");
+      const byId = {};
+      links.forEach(link => {
+        byId[link.getAttribute("href").slice(1)] = link;
+      });
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            links.forEach(l => l.classList.remove("active"));
+            byId[entry.target.id]?.classList.add("active");
+          }
+        });
+      }, { rootMargin: "-30% 0px -60% 0px" });
+
+      document.querySelectorAll("main section[id]").forEach(s => {
+        observer.observe(s);
+      });
+    })();
+  </script>
 </body>
+</html>

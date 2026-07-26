@@ -9,6 +9,18 @@
   <meta name="theme-color" content="#1a1918" media="(prefers-color-scheme: dark)">
   <title>Junlin He (何俊霖)</title>
 
+  <script>
+    // Apply the saved language before first paint to avoid a flash
+    (function () {
+      try {
+        const saved = localStorage.getItem("lang");
+        if (saved === "zh" || saved === "en") {
+          document.documentElement.lang = saved;
+        }
+      } catch (e) { /* storage unavailable; keep default */ }
+    })();
+  </script>
+
   <style>
     :root {
       --bg: #faf9f6;
@@ -63,6 +75,16 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    /* ---------- Language switching ---------- */
+
+    html[lang="zh"] .en {
+      display: none;
+    }
+
+    html:not([lang="zh"]) .zh {
+      display: none;
+    }
+
     /* ---------- Sticky navigation ---------- */
 
     nav {
@@ -102,11 +124,6 @@
       margin-right: auto;
     }
 
-    .nav-name span {
-      color: var(--text-muted);
-      font-weight: 400;
-    }
-
     nav a.nav-link {
       color: var(--text-muted);
       text-decoration: none;
@@ -122,6 +139,29 @@
     nav a.nav-link.active {
       color: var(--accent);
       border-bottom-color: var(--accent);
+    }
+
+    .lang-toggle {
+      flex-shrink: 0;
+      padding: 0.2rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--accent);
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 600;
+      line-height: 1.5;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease,
+                  color 0.15s ease;
+    }
+
+    .lang-toggle:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent-strong);
     }
 
     /* ---------- Layout ---------- */
@@ -148,23 +188,17 @@
     .page-header h1 {
       margin: 0;
       font-family: var(--serif);
-      font-size: 2.5rem;
+      font-size: 3rem;
       font-weight: 700;
       line-height: 1.25;
       letter-spacing: -0.01em;
     }
 
     .zh-name {
-      font-size: 1.5rem;
+      font-size: 2rem;
       font-weight: 400;
       color: var(--text-muted);
       margin-left: 0.6rem;
-    }
-
-    .subtitle {
-      margin: 0.6rem 0 1.5rem;
-      font-size: 1.125rem;
-      color: var(--text-muted);
     }
 
     .links {
@@ -274,13 +308,13 @@
 
     @media (max-width: 540px) {
       .page-header h1 {
-        font-size: 1.875rem;
+        font-size: 2.25rem;
       }
 
       .zh-name {
         display: block;
         margin: 0.3rem 0 0;
-        font-size: 1.25rem;
+        font-size: 1.625rem;
       }
     }
   </style>
@@ -289,13 +323,15 @@
 <body>
   <nav>
     <div class="nav-inner">
-      <a class="nav-name" href="#top">Junlin He <span>· 何俊霖</span></a>
-      <a class="nav-link" href="#research">Research</a>
-      <a class="nav-link" href="#experience">Experience</a>
-      <a class="nav-link" href="#education">Education</a>
-      <a class="nav-link" href="#awards">Awards</a>
-      <a class="nav-link" href="#activities">Activities</a>
-      <a class="nav-link" href="#skills">Skills</a>
+      <a class="nav-name" href="#top">Junlin He</a>
+      <a class="nav-link" href="#research"><span class="en">Research</span><span class="zh">研究</span></a>
+      <a class="nav-link" href="#experience"><span class="en">Experience</span><span class="zh">经历</span></a>
+      <a class="nav-link" href="#education"><span class="en">Education</span><span class="zh">教育</span></a>
+      <a class="nav-link" href="#awards"><span class="en">Awards</span><span class="zh">奖项</span></a>
+      <a class="nav-link" href="#activities"><span class="en">Activities</span><span class="zh">活动</span></a>
+      <a class="nav-link" href="#skills"><span class="en">Skills</span><span class="zh">技能</span></a>
+      <button class="lang-toggle" id="lang-toggle" type="button"
+              aria-label="Switch language">中</button>
     </div>
   </nav>
 
@@ -303,11 +339,7 @@
     <header class="page-header">
       <h1>Junlin He<span class="zh-name">何俊霖</span></h1>
 
-      <p class="subtitle">
-        Incoming Master's Student at The University of Tokyo
-      </p>
-
-      <p>
+      <p class="en">
         I am an incoming master's student joining the
         <a href="https://www.cvm.t.u-tokyo.ac.jp/"
            target="_blank" rel="noopener noreferrer">
@@ -316,169 +348,288 @@
         at The University of Tokyo, advised by
         <a href="https://www.ee.t.u-tokyo.ac.jp/en/staff/yamasaki-toshihiko/"
            target="_blank" rel="noopener noreferrer">
-          Prof. Toshihiko Yamasaki
+          Prof. Toshihiko Yamasaki (<span lang="ja">山﨑 俊彦</span>)
         </a>.
       </p>
 
+      <p class="zh">
+        我即将进入东京大学
+        <a href="https://www.cvm.t.u-tokyo.ac.jp/"
+           target="_blank" rel="noopener noreferrer">
+          CVM实验室
+        </a>
+        攻读硕士学位，导师为
+        <a href="https://www.ee.t.u-tokyo.ac.jp/en/staff/yamasaki-toshihiko/"
+           target="_blank" rel="noopener noreferrer">
+          山崎俊彦（Toshihiko Yamasaki）教授
+        </a>。
+      </p>
+
       <div class="links">
-        <a href="mailto:junlinhe@stu.hit.edu.cn">Email</a>
+        <a href="mailto:junlinhe@stu.hit.edu.cn">
+          <span class="en">Email</span><span class="zh">邮箱</span>
+        </a>
         <a href="https://github.com/Cocroc"
            target="_blank" rel="noopener noreferrer">
           GitHub
         </a>
         <a href="https://www.cvm.t.u-tokyo.ac.jp/"
            target="_blank" rel="noopener noreferrer">
-          CVM Laboratory
+          <span class="en">CVM Laboratory</span><span class="zh">CVM实验室</span>
         </a>
       </div>
     </header>
 
     <section id="research">
-      <h2>Research Interests</h2>
+      <h2><span class="en">Research Interests</span><span class="zh">研究兴趣</span></h2>
 
       <ul>
         <li>
-          3D scene understanding and reconstruction from visual observations
+          <span class="en">
+            3D scene understanding and reconstruction from visual observations
+          </span>
+          <span class="zh">
+            基于视觉观测的三维场景理解与重建
+          </span>
         </li>
         <li>
-          Object tracking and motion modeling in dynamic 3D scenes
+          <span class="en">
+            Object tracking and motion modeling in dynamic 3D scenes
+          </span>
+          <span class="zh">
+            动态三维场景中的目标跟踪与运动建模
+          </span>
         </li>
         <li>
-          Physics-aware video generation and world models for visual agents
+          <span class="en">
+            Physics-aware video generation and world models for visual agents
+          </span>
+          <span class="zh">
+            物理感知的视频生成与面向视觉智能体的世界模型
+          </span>
         </li>
       </ul>
     </section>
 
     <section id="experience">
-      <h2>Research Experience</h2>
+      <h2><span class="en">Research Experience</span><span class="zh">科研经历</span></h2>
 
       <div class="item">
         <div class="item-title">
-          Computer-Vision-Based RIS Beam Tracking
+          <span class="en">Computer-Vision-Based RIS Beam Tracking</span>
+          <span class="zh">基于计算机视觉的RIS波束跟踪</span>
         </div>
-        <div class="meta">October 2024 – October 2025</div>
+        <div class="meta">
+          <span class="en">October 2024 – October 2025</span>
+          <span class="zh">2024年10月 – 2025年10月</span>
+        </div>
 
         <ul>
           <li>
-            Built multilayer C-band reconfigurable intelligent surface
-            prototypes with FPGA-based 2-bit beam control.
+            <span class="en">
+              Built multilayer C-band reconfigurable intelligent surface
+              prototypes with FPGA-based 2-bit beam control.
+            </span>
+            <span class="zh">搭建了多层C波段可重构智能表面（RIS）原型，采用基于FPGA的2-bit波束控制。</span>
           </li>
           <li>
-            Integrated YOLO, FCOS3D, and DeepSORT for real-time 3D target
-            tracking and adaptive beam steering.
+            <span class="en">
+              Integrated YOLO, FCOS3D, and DeepSORT for real-time 3D target
+              tracking and adaptive beam steering.
+            </span>
+            <span class="zh">集成YOLO、FCOS3D与DeepSORT，实现实时三维目标跟踪与自适应波束指向。</span>
           </li>
           <li>
-            Selected for the Provincial Undergraduate Innovation and
-            Entrepreneurship Program.
+            <span class="en">
+              Selected for the Provincial Undergraduate Innovation and
+              Entrepreneurship Program.
+            </span>
+            <span class="zh">
+              入选省级大学生创新创业训练计划。
+            </span>
           </li>
         </ul>
       </div>
 
       <div class="item">
         <div class="item-title">
-          Semantic Communication for Intelligent Telemedicine
+          <span class="en">Low-Bitrate Semantic Communication for Image Reconstruction and Segmentation</span>
+          <span class="zh">面向图像重建与分割的低码率语义通信</span>
         </div>
-        <div class="meta">October 2025 – May 2026</div>
+        <div class="meta">
+          <span class="en">October 2025 – May 2026</span>
+          <span class="zh">2025年10月 – 2026年5月</span>
+        </div>
 
         <ul>
           <li>
-            Developed a semantic communication framework for two-photon
-            microscopy using DETR-based object detection and feature-level
-            compression.
+            <span class="en">
+              Designed a multi-scale JSCC semantic communication framework
+              with Rate Mask variable-rate control, transmitting ResNet-50
+              multi-scale features end-to-end over noisy wireless channels
+              for low-bitrate image reconstruction.
+            </span>
+            <span class="zh">设计了基于ResNet-50多尺度特征的JSCC语义通信框架，结合Rate Mask可变码率机制，在噪声无线信道下实现低码率图像端到端传输与重建。</span>
+          </li>
+          <li>
+            <span class="en">
+              Evaluated task-level semantic fidelity with MaskDINO instance
+              segmentation on COCO, built on Detectron2.
+            </span>
+            <span class="zh">基于Detectron2，在COCO数据集上使用MaskDINO实例分割评估传输后的任务级语义保真度。</span>
           </li>
         </ul>
       </div>
     </section>
 
     <section id="education">
-      <h2>Education</h2>
+      <h2><span class="en">Education</span><span class="zh">教育经历</span></h2>
 
       <div class="item">
-        <div class="item-title">The University of Tokyo</div>
-        <div>Incoming Master's Student, CVM Laboratory</div>
+        <div class="item-title">
+          <span class="en">The University of Tokyo</span>
+          <span class="zh">东京大学</span>
+        </div>
+        <div>
+          <span class="en">Incoming Master's Student, CVM Laboratory</span>
+          <span class="zh">拟入学硕士生，CVM实验室</span>
+        </div>
         <div class="meta">
-          Tokyo, Japan · October 2026 – September 2028 (expected)
+          <span class="en">
+            Tokyo, Japan · October 2026 – September 2028 (expected)
+          </span>
+          <span class="zh">
+            日本东京 · 2026年10月 – 2028年9月（预计）
+          </span>
         </div>
       </div>
 
       <div class="item">
         <div class="item-title">
-          Harbin Institute of Technology
+          <span class="en">Harbin Institute of Technology</span>
+          <span class="zh">哈尔滨工业大学</span>
         </div>
         <div>
-          B.Eng. in Communication Engineering,
-          Yongtan Talent Program in Electronics
+          <span class="en">
+            B.Eng. in Communication Engineering,
+            Yongtan Talent Program in Electronics
+          </span>
+          <span class="zh">
+            通信工程 工学学士，永坦班
+          </span>
         </div>
         <div class="meta">
-          Harbin, China · July 2022 – June 2026 · GPA: 3.30/4.00
+          <span class="en">
+            Harbin, China · July 2022 – June 2026 · GPA: 3.30/4.00
+          </span>
+          <span class="zh">
+            中国哈尔滨 · 2022年7月 – 2026年6月 · GPA: 3.30/4.00
+          </span>
         </div>
       </div>
     </section>
 
     <section id="awards">
-      <h2>Honors &amp; Awards</h2>
+      <h2><span class="en">Honors &amp; Awards</span><span class="zh">荣誉奖项</span></h2>
 
       <div class="item">
         <div class="item-title">
-          National Second Prize
+          <span class="en">National Second Prize</span>
+          <span class="zh">国家级二等奖</span>
         </div>
         <div>
-          National University Students Intelligent Vehicle Competition
+          <span class="en">
+            National University Students Intelligent Vehicle Competition
+          </span>
+          <span class="zh">
+            全国大学生智能汽车竞赛
+          </span>
         </div>
         <div class="meta">2024</div>
       </div>
 
       <div class="item">
         <div class="item-title">
-          First Prize
+          <span class="en">First Prize</span>
+          <span class="zh">一等奖</span>
         </div>
-        <div>Annual Undergraduate Project Competition, HIT</div>
+        <div>
+          <span class="en">Annual Undergraduate Project Competition, HIT</span>
+          <span class="zh">哈工大本科生年度项目竞赛</span>
+        </div>
         <div class="meta">2023</div>
       </div>
 
       <div class="item">
         <div class="item-title">
-          Innovation and Entrepreneurship Scholarship, HIT
+          <span class="en">Innovation and Entrepreneurship Scholarship, HIT</span>
+          <span class="zh">哈工大创新创业奖学金</span>
         </div>
         <div class="meta">
-          Third Prize, 2023 · Second Prize, 2024
+          <span class="en">Third Prize, 2023 · Second Prize, 2024</span>
+          <span class="zh">2023年三等奖 · 2024年二等奖</span>
         </div>
       </div>
     </section>
 
     <section id="activities">
-      <h2>Leadership &amp; Activities</h2>
+      <h2><span class="en">Leadership &amp; Activities</span><span class="zh">领导力与课外活动</span></h2>
 
       <div class="item">
         <div class="item-title">
-          President, HIT Smartcar &amp; Innovation Club
+          <span class="en">President, HIT Smartcar &amp; Innovation Club</span>
+          <span class="zh">哈工大智能车创新俱乐部 会长</span>
         </div>
-        <div class="meta">September 2024 – August 2025</div>
+        <div class="meta">
+          <span class="en">September 2024 – August 2025</span>
+          <span class="zh">2024年9月 – 2025年8月</span>
+        </div>
 
         <ul>
-          <li>Led member recruitment, interviews, and selection.</li>
           <li>
-            Mentored members in hardware circuit design and software
-            development, and coordinated technical training.
+            <span class="en">Led member recruitment, interviews, and selection.</span>
+            <span class="zh">负责成员招募、面试与选拔。</span>
+          </li>
+          <li>
+            <span class="en">
+              Mentored members in hardware circuit design and software
+              development, and coordinated technical training.
+            </span>
+            <span class="zh">
+              指导成员进行硬件电路设计与软件开发，并组织技术培训。
+            </span>
           </li>
         </ul>
       </div>
     </section>
 
     <section id="skills" class="skills">
-      <h2>Technical Skills</h2>
+      <h2><span class="en">Technical Skills</span><span class="zh">专业技能</span></h2>
 
-      <p><strong>Programming:</strong> Python, C, C++</p>
-      <p><strong>Frameworks:</strong> PyTorch, TensorFlow, ROS</p>
       <p>
-        <strong>Agentic Tools:</strong>
-        Claude Code, Codex, reusable agent skills, MCP-enabled tools,
-        and multi-agent workflows
+        <span class="en"><strong>Programming:</strong> Python, C, C++</span>
+        <span class="zh"><strong>编程语言：</strong>Python、C、C++</span>
+      </p>
+      <p>
+        <span class="en"><strong>Frameworks:</strong> PyTorch, TensorFlow, ROS</span>
+        <span class="zh"><strong>框架：</strong>PyTorch、TensorFlow、ROS</span>
+      </p>
+      <p>
+        <span class="en">
+          <strong>Agentic Tools:</strong>
+          Claude Code, Codex, reusable agent skills, MCP-enabled tools,
+          and multi-agent workflows
+        </span>
+        <span class="zh">
+          <strong>智能体工具：</strong>
+          Claude Code、Codex、可复用的agent skills、支持MCP的工具以及多智能体工作流
+        </span>
       </p>
     </section>
 
     <footer>
-      © 2026 Junlin He (何俊霖) · Last updated July 2026
+      <span class="en">© 2026 Junlin He (何俊霖) · Last updated July 2026</span>
+      <span class="zh">© 2026 何俊霖（Junlin He）· 最后更新于2026年7月</span>
     </footer>
   </main>
 
@@ -502,6 +653,32 @@
 
       document.querySelectorAll("main section[id]").forEach(s => {
         observer.observe(s);
+      });
+    })();
+
+    // Language toggle: swaps between English and Chinese content
+    (function () {
+      const toggle = document.getElementById("lang-toggle");
+      const root = document.documentElement;
+
+      function apply(lang) {
+        root.lang = lang;
+        toggle.textContent = lang === "zh" ? "EN" : "中";
+        toggle.setAttribute("aria-label",
+          lang === "zh" ? "Switch to English" : "切换到中文");
+        document.title = lang === "zh"
+          ? "何俊霖 (Junlin He)"
+          : "Junlin He (何俊霖)";
+        try {
+          localStorage.setItem("lang", lang);
+        } catch (e) { /* storage unavailable */ }
+      }
+
+      // Sync button state with the language applied by the head script
+      apply(root.lang === "zh" ? "zh" : "en");
+
+      toggle.addEventListener("click", () => {
+        apply(root.lang === "zh" ? "en" : "zh");
       });
     })();
   </script>
